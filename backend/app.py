@@ -6,10 +6,12 @@ from datetime import datetime,timezone
 from flask import request,send_from_directory
 from flask_cors import CORS
 from backend.ml.feature_extractor import extract_features,FEATURE_NAMES,explain_features
+
+DB_PATH = "/tmp/phishguard.db"
 ROOT=Path(__file__).resolve().parents[1]; ART=ROOT/'backend/ml/artifacts'; DB=ROOT/'backend/database/phishguard.db'; app=Flask(__name__); CORS(app)
 model=joblib.load(ART/'model.joblib') if (ART/'model.joblib').exists() else None
 def db():
- c=sqlite3.connect(DB); c.row_factory=sqlite3.Row; c.execute('CREATE TABLE IF NOT EXISTS scans(id INTEGER PRIMARY KEY AUTOINCREMENT,url TEXT,prediction TEXT,risk_score INTEGER,risk_level TEXT,confidence REAL,reasons TEXT,features TEXT,created_at TEXT)'); c.commit(); return c
+ con=sqlite3.connect(DB); con.row_factory=sqlite3.Row; con.execute('CREATE TABLE IF NOT EXISTS scans(id INTEGER PRIMARY KEY AUTOINCREMENT,url TEXT,prediction TEXT,risk_score INTEGER,risk_level TEXT,confidence REAL,reasons TEXT,features TEXT,created_at TEXT)'); con.commit(); return con
 def valid(u):return isinstance(u,str) and len(u)<=2048 and bool(re.match(r'^(https?://)?[^\s/$.?#].[^\s]*$',u.strip(),re.I))
 def score(f,p):
  s=round(p*70)+min(15,f['is_ip']*15)+min(8,f['has_at']*8)+min(8,f['is_shortener']*8)+min(8,f['has_suspicious_tld']*8)+min(8,f['has_punycode']*8)+min(7,f['num_subdomains']*2)+min(7,sum(f.get('kw_'+k,0) for k in ['login','verify','account','password','bank','signin','confirm']))+(5 if not f['is_https'] else 0)+(5 if f['url_length']>=100 else 0); return max(0,min(100,s))
