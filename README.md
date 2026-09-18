@@ -389,9 +389,16 @@ GitHub: [YOUR_GITHUB_PROFILE](https://github.com/janhaviupadhay1712)
 
 ---
 
-## 📄 Disclaimer
+## ⚠️ Project Scope & Disclaimer
 
-PhishGuard is developed for educational and cybersecurity awareness purposes. Its predictions are probabilistic and may be incorrect. Always verify unfamiliar URLs through trusted channels and avoid submitting sensitive information to unknown websites.
+PhishGuard is an educational and demonstration-based phishing URL analysis project. It illustrates how machine learning and static URL features can be used to classify URLs as **Legitimate, Suspicious, or Phishing**.
+
+The application demonstrates the classification process by analyzing URL characteristics and presenting a risk score, model confidence, and possible suspicious indicators.
+
+**PhishGuard does not guarantee accurate real-world phishing detection.** Its predictions are examples of how the implemented model analyzes URLs and may include false positives or false negatives. A URL classified as legitimate is not necessarily safe, and a URL classified as phishing is not independently confirmed to be malicious.
+
+The project is intended for learning, demonstration, and understanding phishing detection concepts. It should not be used as the sole basis for real-world cybersecurity decisions.
+
 
 ---
 
