@@ -22,6 +22,8 @@ It also includes a **Local AI Security Analyst** that interprets scan results an
 
 ---
 
+**PROJECT LINK -** https://phishguard01-six.vercel.app/
+
 ## ✨ Features
 
 * 🔍 **URL Scanner** — Submit a URL for analysis.
